@@ -5,7 +5,8 @@
   "description": "干掉各大博客平台的外链跳转警告",
   "author": "Zhongbr",
   "include": [
-    "*://blog.csdn.net/*"
+    "*://blog.csdn.net/*",
+    "*://www.zhihu.com/*"
   ],
   "license": "GPL License",
   "grant": [
