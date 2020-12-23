@@ -6,6 +6,7 @@
 // @author      Zhongbr
 // @include     *://blog.csdn.net/*
 // @include     *://www.zhihu.com/*
+// @include     *://www.jianshu.com/*
 // @license     GPL License
 // @require     https://cdn.bootcss.com/jquery/2.1.2/jquery.min.js
 // @connect     static.doc88.com
