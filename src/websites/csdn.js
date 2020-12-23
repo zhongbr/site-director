@@ -5,8 +5,7 @@ import {log} from '../utils/log';
 
 export const CSDNDirector = {
     regexp: /^https?:\/\/blog.csdn.net/g,
-    article: "",
-    director(document, window){
+    director(document){
         log('csdn site matched .');
         document.querySelector('#mainBox > main > div.blog-content-box > article').querySelectorAll('a:not([name])').forEach(e=>{
             let a = document.createElement("a");
