@@ -1,10 +1,11 @@
 import {CSDNDirector} from './websites/csdn';
 import {zhihuDirector} from './websites/zhihu';
+import {JianShuDirector} from './websites/jianshu';
 
 const websiteLocation = unsafeWindow.location.href;
 const siteDocument = unsafeWindow.document;
 
-const directors = [CSDNDirector, zhihuDirector];
+const directors = [CSDNDirector, zhihuDirector, JianShuDirector];
 
 // 匹配网站开始替换
 for(let i=0;i<directors.length;i++){
