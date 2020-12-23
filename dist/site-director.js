@@ -11,7 +11,6 @@
 // @connect     static.doc88.com
 // @grant       unsafeWindow
 // ==/UserScript==
-
 (function () {
     'use strict';
 
@@ -41,7 +40,7 @@
     };
 
     /*
-    * CSDN网站
+    * 知乎网站
     * */
     var zhihuDirector = {
       regexp: /zhihu/,
@@ -59,9 +58,24 @@
       }
     };
 
+    var JianShuDirector = {
+      regexp: /^https?:\/\/www.jianshu.com/,
+      director: function director(document) {
+        document.querySelector("#__next > div._21bLU4._3kbg6I > div > div > section:nth-child(1) > article").querySelectorAll("a").forEach(function (e) {
+          var regexp = /https:\/\/links.jianshu.com\/go\?to=(.*)/;
+
+          if (regexp.test(e.href)) {
+            e.href = e.href.replace(regexp, function (_, target) {
+              return decodeURIComponent(target);
+            });
+          }
+        });
+      }
+    };
+
     var websiteLocation = unsafeWindow.location.href;
     var siteDocument = unsafeWindow.document;
-    var directors = [CSDNDirector, zhihuDirector]; // 匹配网站开始替换
+    var directors = [CSDNDirector, zhihuDirector, JianShuDirector]; // 匹配网站开始替换
 
     for (var i = 0; i < directors.length; i++) {
       if (directors[i].regexp.test(websiteLocation)) {

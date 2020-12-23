@@ -6,7 +6,8 @@
   "author": "Zhongbr",
   "include": [
     "*://blog.csdn.net/*",
-    "*://www.zhihu.com/*"
+    "*://www.zhihu.com/*",
+    "*://www.jianshu.com/*"
   ],
   "license": "GPL License",
   "grant": [
