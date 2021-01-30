@@ -1,20 +1,17 @@
 {
   "name": "干掉跳转警告",
-  "namespace": "https://github.com/WindrunnerMax/TKScript",
-  "version": "1.0.0",
+  "namespace": "https://github.com/zhongbr",
+  "version": "1.0.1",
   "description": "干掉各大博客平台的外链跳转警告",
   "author": "Zhongbr",
   "include": [
     "*://blog.csdn.net/*",
     "*://www.zhihu.com/*",
-    "*://www.jianshu.com/*"
+    "*://www.jianshu.com/*",
+    "*://mail.qq.com/*"
   ],
   "license": "GPL License",
   "grant": [
     "unsafeWindow"
-  ],
-  "require": [
-    "https://cdn.bootcss.com/jquery/2.1.2/jquery.min.js"
-  ],
-  "connect": "static.doc88.com"
+  ]
 }

@@ -1,15 +1,14 @@
 // ==UserScript==
 // @name        干掉跳转警告
 // @description 干掉各大博客平台的外链跳转警告
-// @namespace   https://github.com/WindrunnerMax/TKScript
-// @version     1.0.0
+// @namespace   https://github.com/zhongbr
+// @version     1.0.1
 // @author      Zhongbr
 // @include     *://blog.csdn.net/*
 // @include     *://www.zhihu.com/*
 // @include     *://www.jianshu.com/*
+// @include     *://mail.qq.com/*
 // @license     GPL License
-// @require     https://cdn.bootcss.com/jquery/2.1.2/jquery.min.js
-// @connect     static.doc88.com
 // @grant       unsafeWindow
 // ==/UserScript==
 (function () {
@@ -62,21 +61,36 @@
     var JianShuDirector = {
       regexp: /^https?:\/\/www.jianshu.com/,
       director: function director(document) {
-        document.querySelector("#__next > div._21bLU4._3kbg6I > div > div > section:nth-child(1) > article").querySelectorAll("a").forEach(function (e) {
-          var regexp = /https:\/\/links.jianshu.com\/go\?to=(.*)/;
+        document.querySelector("article").querySelectorAll("a").forEach(function (e) {
+          var regexps = [/https:\/\/links.jianshu.com\/go\?to=(.*)/, /https?:\/\/links?.jianshu.com\/?\?t=(.*)/];
+          regexps.forEach(function (regexp) {
+            if (regexp.test(e.href)) {
+              e.href = e.href.replace(regexp, function (_, target) {
+                return decodeURIComponent(target);
+              });
+            }
+          });
+        });
+      }
+    };
 
-          if (regexp.test(e.href)) {
-            e.href = e.href.replace(regexp, function (_, target) {
-              return decodeURIComponent(target);
-            });
-          }
+    /*
+    * QQ邮箱
+    * */
+    var QQMail = {
+      regexp: /^https?:\/\/mail.qq.com/,
+      director: function director(document) {
+        document.querySelectorAll("a[data-targettype=webpage]").forEach(function (e) {
+          var a = document.createElement("a");
+          a.innerHTML = "<span onclick=\"window.open('".concat(e.href, "')\">").concat(e.innerText, "</>");
+          e.replaceWith(a);
         });
       }
     };
 
     var websiteLocation = unsafeWindow.location.href;
     var siteDocument = unsafeWindow.document;
-    var directors = [CSDNDirector, zhihuDirector, JianShuDirector]; // 匹配网站开始替换
+    var directors = [CSDNDirector, zhihuDirector, JianShuDirector, QQMail]; // 匹配网站开始替换
 
     for (var i = 0; i < directors.length; i++) {
       if (directors[i].regexp.test(websiteLocation)) {
